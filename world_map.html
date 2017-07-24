@@ -98,7 +98,7 @@ function setup(width, height) {
 }
 
 // countries from world-topo-min.json file
-d3.json("data/world-topo-min.json", function(error, world){
+d3.json("world-topo-min.json", function(error, world){
     var countries = topojson.feature(world, world.objects.countries).features;
 
     topo = countries;
@@ -156,7 +156,7 @@ function draw(topo) {
         });
 
     //External CSV file with capitals and tooltip data
-    d3.csv("data/country-capitals.csv", function(err,capitals){
+    d3.csv("country-capitals.csv", function(err,capitals){
 
         capitals.forEach(funciton(i){
             addpoint(i.CapitalLongitude, i.CapitalLatitude, i.CapitalName);
