@@ -1,0 +1,10 @@
+[
+
+  {label: "Africa", "Economic development and trade": 3348215, "Education": 1106391, "Emergency assistance": 1834780, "Environment and energy": 1426078, "Good governance": 2438348, "Health and social services": 1854201, "In donor costs and unspecified": 299223, "Multilateral": 0},
+  {label: "Asia", "Economic development and trade": 1376710, "Education": 535792, "Emergency assistance": 990438, "Environment and energy": 929972, "Good governance": 1363515, "Health and social services": 694020, "In donor costs and unspecified": 202615, "Multilateral": 0},
+  {label: "America", "Economic development and trade": 384179, "Education": 129044, "Emergency assistance": 195190, "Environment and energy": 1906248, "Good governance": 596363, "Health and social services": 166731, "In donor costs and unspecified": 22718, "Multilateral": 0},
+  {label: "The Middle East", "Economic development and trade": 554992, "Education": 146122, "Emergency assistance": 721510, "Environment and energy": 62119, "Good governance": 586033, "Health and social services": 264349, "In donor costs and unspecified": 156933, "Multilateral": 0},
+  {label: "Europe", "Economic development and trade": 247489, "Education": 145310, "Emergency assistance": 110397, "Environment and energy": 144720, "Good governance": 811803, "Health and social services": 225485, "In donor costs and unspecified": 181829, "Multilateral": 0},
+  {label: "Oceania", "Economic development and trade": 62, "Education": 145, "Emergency assistance": 902, "Environment and energy": 12435, "Good governance": 4256, "Health and social services": 166, "In donor costs and unspecified": 150, "Multilateral": 0}
+
+]

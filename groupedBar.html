@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 960px;
+  height: 500px;
+  position: relative;
+}
+
+svg {
+    width: 150%;
+    height: 100%;
+    position: center;
+}
+
+text{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.toolTip {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: absolute;
+    display: none;
+    width: auto;
+    height: auto;
+    background: none repeat scroll 0 0 white;
+    border: 0 none;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: -3px 3px 15px #888888;
+    color: black;
+    font: 12px sans-serif;
+    padding: 5px;
+    text-align: center;
+}
+
+.legend {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 60%;
+}
+
+rect {
+    stroke-width: 2;
+}
+
+text {
+  font: 14px sans-serif;
+}
+
+.axis text {
+  font: 14px sans-serif;
+}
+
+.axis path{
+  fill: none;
+  stroke: #000;
+}
+
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis .tick line {
+  stroke-width: 1;
+  stroke: rgba(0, 0, 0, 0.2);
+}
+
+.axisHorizontal path{
+  fill: none;
+}
+
+.axisHorizontal line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axisHorizontal .tick line {
+  stroke-width: 1;
+  stroke: rgba(0, 0, 0, 0.2);
+}
+
+.bar {
+  fill: steelblue;
+  fill-opacity: .9;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.indented {
+  padding-left: 50pt;
+  padding-right: 50pt;
+}
+
+</style>
+<body>
+
+  <div class="page-header">
+    <h1> Norwegian Development Fund Disbursements 2000-2015</h1>
+  </div>
+  <h2> What type of projects were the funds used for in each region?</h2>
+  <p class="lead"> This chart shows what type of projects were funded by the
+      disbursements from the <b>Norwegian Fund</b> between 2000-2015.  The cumulative
+      funds for each region are:
+  </p>
+
+  <div class="indented">
+    <ul>
+    <li>     Africa       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;12,307,239 </li>
+    <li>     Asia         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;6,093,064 </li>
+    <li>     America      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 3,400,477 </li>
+    <li>     Middle East  &nbsp; &nbsp;2,492,061 </li>
+    <li>     Europe       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1,867,036 </li>
+    <li>     Oceania      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  18,119 </li>
+    </ul>
+  </div>
+
+  <h3> Interactions </h3>
+  <p class="lead">  Hover over each bar to reveal the amount of funds spent on each target area per region. </p>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var margin = {
+        //top: (parseInt(d3.select('body').style('width'), 10)/20),
+        top: (50),
+        right: (parseInt(d3.select('body').style('width'), 10)/20),
+        //bottom: (parseInt(d3.select('body').style('width'), 10)/20),
+        bottom: (50),
+        left: (parseInt(d3.select('body').style('width'), 10)/20)},
+    //width = parseInt(d3.select('body').style('width'), 10) - margin.left - margin.right,
+    //height = parseInt(d3.select('body').style('height'), 10) - margin.top - margin.bottom;
+    height = 500 - margin.top - margin.bottom;
+    width = 1200 - margin.left - margin.right;
+
+var x0 = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var x1 = d3.scale.ordinal();
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var colorRange = d3.scale.category20();
+var color = d3.scale.ordinal()
+    .range(colorRange.range());
+
+var xAxis = d3.svg.axis()
+    .scale(x0)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(d3.format(".2s"));
+
+var divTooltip = d3.select("body").append("div").attr("class", "toolTip");
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+dataset = [
+  {label: "Africa", "Economic development and trade": 3348215, "Education": 1106391, "Emergency assistance": 1834780, "Environment and energy": 1426078, "Good governance": 2438348, "Health and social services": 1854201, "In donor costs and unspecified": 299223, "Multilateral": 0},
+  {label: "Asia", "Economic development and trade": 1376710, "Education": 535792, "Emergency assistance": 990438, "Environment and energy": 929972, "Good governance": 1363515, "Health and social services": 694020, "In donor costs and unspecified": 202615, "Multilateral": 0},
+  {label: "America", "Economic development and trade": 384179, "Education": 129044, "Emergency assistance": 195190, "Environment and energy": 1906248, "Good governance": 596363, "Health and social services": 166731, "In donor costs and unspecified": 22718, "Multilateral": 0},
+  {label: "The Middle East", "Economic development and trade": 554992, "Education": 146122, "Emergency assistance": 721510, "Environment and energy": 62119, "Good governance": 586033, "Health and social services": 264349, "In donor costs and unspecified": 156933, "Multilateral": 0},
+  {label: "Europe", "Economic development and trade": 247489, "Education": 145310, "Emergency assistance": 110397, "Environment and energy": 144720, "Good governance": 811803, "Health and social services": 225485, "In donor costs and unspecified": 181829, "Multilateral": 0},
+  {label: "Oceania", "Economic development and trade": 62, "Education": 145, "Emergency assistance": 902, "Environment and energy": 12435, "Good governance": 4256, "Health and social services": 166, "In donor costs and unspecified": 150, "Multilateral": 0}
+];
+
+//var yearData = data.filter(function(d) {return d.year == "2015";});
+//var dataset = yearData.filter(function(key) {return key == "dataset";});
+
+var options = d3.keys(dataset[0]).filter(function(key) { return key !== "label"; });
+
+dataset.forEach(function(d) {
+    d.valores = options.map(function(name) { return {name: name, value: +d[name]}; });
+});
+
+x0.domain(dataset.map(function(d) { return d.label; }));
+x1.domain(options).rangeRoundBands([0, x0.rangeBand()]);
+y.domain([0, d3.max(dataset, function(d) { return d3.max(d.valores, function(d) { return d.value; }); })]);
+
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis)
+    .style("font-size", "14px");
+
+svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+    .append("text")
+    .style("font-size", "14px")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("Funds");
+
+var bar = svg.selectAll(".bar")
+    .data(dataset)
+    .enter().append("g")
+    .attr("class", "rect")
+    .attr("transform", function(d) { return "translate(" + x0(d.label) + ",0)"; });
+
+bar.selectAll("rect")
+    .data(function(d) { return d.valores; })
+    .enter().append("rect")
+    .attr("width", x1.rangeBand())
+    .attr("x", function(d) { return x1(d.name); })
+    .attr("y", function(d) { return y(d.value); })
+    .attr("value", function(d){return d.name;})
+    .attr("height", function(d) { return height - y(d.value); })
+    .style("fill", function(d) { return color(d.name); });
+
+bar
+    .on("mousemove", function(d){
+        divTooltip.style("left", d3.event.pageX+10+"px");
+        divTooltip.style("top", d3.event.pageY-25+"px");
+        divTooltip.style("display", "inline-block");
+        var x = d3.event.pageX, y = d3.event.pageY
+        var elements = document.querySelectorAll(':hover');
+        l = elements.length
+        l = l-1
+        elementData = elements[l].__data__
+        divTooltip.html((d.label)+"<br>"+elementData.name+"<br>"+ "<b>" + elementData.value/1000 + "k</b>");
+    });
+bar
+    .on("mouseout", function(d){
+        divTooltip.style("display", "none");
+    });
+
+
+var legend = svg.selectAll(".legend")
+    .data(options.slice())
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+legend.append("rect")
+    .attr("x", width - 18)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", color);
+
+legend.append("text")
+    .attr("x", width - 24)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("font-size", "14px")
+    .style("text-anchor", "end")
+    .text(function(d) { return d; });
+
+</script>
+
+<h2> About this page </h2>
+  <p class="lead"> This chart was built using d3.</p>
+
+<h3> User Interface Events </h3>
+  <p class="lead"> The target area total is displayed when the tooltip hovers over each bar.
+  </p>
+
+<h3> Annotations </h3>
+  <p class="lead"> The region name, target area, and total disbursement is displayed when the user hovers over each bar.
+      The y-axis represents the amount of funds disbursed in (000ʻs usd).  The x-axis represents each
+      region.
+  </p>
+
+<h3> Triggers </h3>
+  <p class="lead">  The target area total is displayed when the tooltip hovers over each bar.
+  </p>
+
+<h3> Parameters </h3>
+  <p class="lead"> The chart is based on the data provided in <b>funds.csv</b>.
+    The parameters are label= Recipient Region, keys = Target Area unique values.
+  </p>
+
+<h3> License </h3>
+<p class="lead"> This chart was based on the d3 template -
+  <a href="http://bl.ocks.org/juan-cb/ac731adaeadd3e855d26">Grouped Bar Chart with Legend and Tooltips Template</a>.</p>
+
+
+</body>
+</html>
