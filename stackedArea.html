@@ -7,12 +7,6 @@
   padding-right: 50pt;
 }
 
-/* Bottom menu
-/* --------------------- */
-#infoMenu li a {
-    color: #fff;
-}
-
 </style>
 <head>
     <title>Stacked Area Chart</title>
@@ -168,6 +162,32 @@
         }
 
     </script>
+
+<style>
+    button.accordion{
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  font-size: 14px;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+button.accordion.active, button.accordion.hover {
+  background-color: #ddd;
+}
+
+div.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+}
+
+</style>
 </head>
 
 <body ng-app='nvd3TestApp'>
@@ -218,43 +238,59 @@
     </nvd3-stacked-area-chart>
 </div>
 
-<h2> About this page </h2>
-  <p class="lead"> This chart was built using nvd3 and angularjs.</p>
 
-<h3> User Interface Events </h3>
-  <p class="lead"> The user can also change the type of graph selecting either "Stacked", "Stream", or "Expanded".
-      Regions can also be included or excluded through selection.
-  </p>
+  <div class="container" id="aboutVisualization" style="padding-bottom:30 px">
+    <button class="accordion"> <b> About this Visualization (click & scroll down) </b></button>
+      <div class="panel">
+        <p class="lead"> This stacked area chart was built using d3, nvd3, and angularjs. Scroll up to reach the
+            Intro.  Scroll down to reach the Final. Click the right or left arrows to change the
+            slide.</p>
+          <h3> User Interface Events </h3>
+          <p class="lead" align="justify"> The user can also change the type of graph selecting either "Stacked", "Stream", or "Expanded".
+             Regions can also be included or excluded through selection of the buttons at the top of the page.
+          </p>
+            <h3> Annotations </h3>
+          <p class="lead" align="justify"> The region name and funds received is displayed when the user hovers over each year point.
+              The tool-tip box is cleared when the mouse moves off of the year.
+              The y-axis represents the total amount disbursed in (000ʻs usd).  The x-axis represents
+              each year.
+          </p>
 
-<h3> Annotations </h3>
-  <p class="lead"> The region name and funds received is displayed when the user hovers over each year point.
-      The y-axis represents the total amount disbursed in (000ʻs usd).  The x-axis represents
-      each year.
-  </p>
+            <h3> Triggers </h3>
+              <p class="lead" align="justify">  A display with each regionʻs annual funds appears when the tooltip is hovered over the data.
+                  The user can also change the type of graph selecting either "Stacked", "Stream", or "Expanded".
+                  Regions can also be included or excluded through selection.
+              </p>
 
-<h3> Triggers </h3>
-  <p class="lead">  A display each regionʻs annual funds when the tooltip is hovered over the data.
-      The user can also change the type of graph selecting either "Stacked", "Stream", or "Expanded".
-      Regions can also be included or excluded through selection.
-  </p>
+            <h3> Parameters </h3>
+              <p class="lead" align="justify"> The chart is based on the data provided in <b>funds.csv</b>.
+                Users can scroll up to reach the Intro slide or scroll down to reach the Final slide.
+                  By clicking the right or left arrows, users can move between slides.
+              </p>
 
-<h3> Parameters </h3>
-  <p class="lead"> The chart is based on the data provided in <b>funds.csv</b>.
-    The parameters are "key"= Recipient Region, "values"=[Year, Disbursements (1000 $)].
-  </p>
+            <h3> License </h3>
+            <p class="lead" align="justify"> This chart was based on the Angular.js, nvd3.js, and d3 template -
+              <a href="https://github.com/angularjs-nvd3-directives/angularjs-nvd3-directives/blob/master/examples/stackedAreaChart.html">
+                  Stacked Area Chart Template</a>.</p>
+      </div>
+  </div>
 
-<h3> License </h3>
-<p class="lead"> This chart was based on the Angular.js and nvd3.js -
-  <a href="https://github.com/angularjs-nvd3-directives/angularjs-nvd3-directives/blob/master/examples/stackedAreaChart.html">Stacked Area Chart Template</a>.</p>
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
 
-
-<div id="infoMenu">
-<ul>
-    <li><a href="https://piazza.com/class/j1rmndzjbmk7nm?cid=290">Piazza </li>
-
-</ul>
-
-</div>
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
+}
+</script>
 
 </body>
 </html>

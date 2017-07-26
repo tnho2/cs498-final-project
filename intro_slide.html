@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro Slide</title>
+<style>
+.indented {
+  padding-left: 50pt;
+  padding-right: 50pt;
+}
+.text-center {
+  text-align: center;
+}
+button.accordion{
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  font-size: 14px;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+button.accordion.active, button.accordion.hover {
+  background-color: #ddd;
+}
+div.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+}
+
+</style>
+</head>
+
+<body>
+  <div class="page-header">
+    <h1> Norwegian Development Fund Disbursements 2000-2015</h1>
+  </div>
+
+  <div class="container" id="aboutFund" style="padding-bottom:30 px">
+    <button class="accordion"> <b> About the Fund </b> </button>
+      <div class="panel">
+
+        <p class="lead"> The <b>Norwegian Development Fund</b>, an NGO started in 1978, supports small scale farmers in their
+        fight against hunger and poverty.  </p>
+
+          <div class="text-center">
+              <a href="https://www.utviklingsfondet.no/en" target="_blank">
+                  <h2 class="lead">https://www.utviklingsfondet.no/en</h2></a>
+          </div>
+
+          <p class="lead">Their main areas of focus are: </p>
+
+          <div class="indented">
+            <p>
+            <a href="http://www.utviklingsfondet.no/en/main_topics/small_scale_farmers_great_opportunities">Small scale farmers</a></p>
+            <p>
+            <a href="http://www.utviklingsfondet.no/en/main_topics/modern_sustainable_agriculture">Sustainable agriculture</a></p>
+            <p>
+            <a href="http://www.utviklingsfondet.no/en/main_topics/biological_diversity">Biological diversity</a></p>
+            <p>
+            <a href="http://www.utviklingsfondet.no/en/main_topics/political_advocacy">Political advocacy</a></p>
+            <p>
+            <a href="http://www.utviklingsfondet.no/en/main_topics/climate_adapted_villages">Climate Adapted Villages</a></p>
+
+          </div>
+      </div>
+  </div>
+
+  <div class="container" id="aboutVisualization" style="padding-bottom:30 px">
+    <button class="accordion"> <b> About this Visualization</b> </button>
+      <div class="panel">
+        <p class="lead" align="justify">
+            This visualization is an interactive slide show that will enable users to investigate
+            <b>where</b> and <b>how</b> funds from the <b>Norwegian Development Fund</b> are being allocated.
+        </p>
+
+          <p class="lead">
+              Users can scroll down to reach the interactive slide show and final page.
+              Click on the right and left arrows of the slide section to switch slides.
+          </p>
+
+        </div>
+  </div>
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
+}
+</script>
+
+</body>
+</html>
