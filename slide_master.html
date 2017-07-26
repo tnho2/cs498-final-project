@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Interactive Slides </title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alvarotrigo/fullPage.js/master/jquery.fullPage.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jquery.easings.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/alvarotrigo/fullPage.js/master/jquery.fullPage.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#fullpage').fullpage({
+                sectionsColor: ['#7BAABE', '#4BBFC3', '#7BAABE', 'whitesmoke', '#000'],
+            });
+        });
+    </script>
+
+    <style>
+        .section{
+            font-size: 2em;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="fullpage">
+        <div class="section"> Introduction stuff </div>
+        <div class="section" id="section1">
+            <div class="slide" data-anchor="stackedArea.html"> StackedArea goes here </div>
+            <div class="slide" data-anchor="worldmap-template.html"> Worldmap goes here </div>
+            <div class="slide" data-anchor="groupedBar.html"> GroupedBar goes here</div>
+        </div>
+        <div class="section"> License and Links </div>
+    </div>
+</body>
+</html>
