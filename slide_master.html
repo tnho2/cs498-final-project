@@ -10,7 +10,9 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#fullpage').fullpage({
+                anchors: ["firstPage", "secondPage", "thirdPage"],
                 sectionsColor: ['#7BAABE', '#4BBFC3', '#7BAABE', 'whitesmoke', '#000'],
+                scrollBar: true
             });
         });
     </script>
@@ -25,13 +27,34 @@
 
 <body>
     <div id="fullpage">
-        <div class="section"> Intro goes here </div>
-        <div class="section" id="section1">
-            <div class="slide" data-anchor="stackedArea.html"> StackedArea goes here </div>
-            <div class="slide" data-anchor="worldmap-template.html"> Worldmap goes here </div>
-            <div class="slide" data-anchor="groupedBar.html"> GroupedBar goes here</div>
+        <div class="section" id="section0">
+            <div class="intro">
+                <h1>Intro goes here </h1>
+            </div>
         </div>
-        <div class="section"> License and Links </div>
+        <div class="section" id="section1">
+            <div class="slide" id="slide1">
+                <h1> StackedArea goes here </h1>
+            </div>
+            <div class="slide" id="slide2">
+                <h1> Worldmap goes here </h1>
+            </div>
+            <div class="slide" id="slide3">
+                <h1> GroupedBar goes here </h1>
+            </div>
+        </div>
+        <div class="section" id="seciont2">
+            <div class="intro">
+                <h1>License and Links </h1>
+            </div>
+        </div>
     </div>
+
+<ul id="main-vani">
+    <li><a href="#slide1">slide1</a></li>
+    <li><a href="#slide2">slide2</a></li>
+    <li><a href="#slide3">slide3</a></li>
+</ul>
+
 </body>
 </html>
