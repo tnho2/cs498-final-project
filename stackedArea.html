@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<style>
+.indented {
+  padding-left: 50pt;
+  padding-right: 50pt;
+}
+
+/* Bottom menu
+/* --------------------- */
+#infoMenu li a {
+    color: #fff;
+}
+
+</style>
+<head>
+    <title>Stacked Area Chart</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF8">
+    <script src="angular.js"></script>
+    <script src="d3.js"></script>
+    <script src="nv.d3.js"></script>
+    <script src="angularjs-nvd3-directives.js"></script>
+    <link rel="stylesheet" href="nv.d3.css"/>
+    <script>
+        var app = angular.module("nvd3TestApp", ['nvd3ChartDirectives']);
+
+        function ExampleCtrl($scope){
+            $scope.exampleData = [
+                {
+                    "key": "Africa",
+                    "values": [
+                      [2000,337810],
+                      [2001,323586],
+                      [2002,452564],
+                      [2003,579758],
+                      [2004,627095],
+                      [2005,716844],
+                      [2006,777003],
+                      [2007,912189],
+                      [2008,1027101],
+                      [2009,904560],
+                      [2010,948880],
+                      [2011,1081885],
+                      [2012,956793],
+                      [2013,1047157],
+                      [2014,941319],
+                      [2015,672689]]
+                },
+                {
+                    "key" : "Asia",
+                    "values" : [
+                      [2000,148317],
+                      [2001,180357],
+                      [2002,219580],
+                      [2003,249454],
+                      [2004,276752],
+                      [2005,521443],
+                      [2006,357372],
+                      [2007,492408],
+                      [2008,512341],
+                      [2009,428711],
+                      [2010,531722],
+                      [2011,497015],
+                      [2012,453395],
+                      [2013,467902],
+                      [2014,424509],
+                      [2015,331779]]
+                },
+                {
+                    "key": "America",
+                    "values": [
+                      [2000, 59619],
+                      [2001, 86999],
+                      [2002, 62078],
+                      [2003, 76874],
+                      [2004, 86579],
+                      [2005, 105862],
+                      [2006, 108706],
+                      [2007, 276958],
+                      [2008, 148133],
+                      [2009, 140294],
+                      [2010, 228691],
+                      [2011, 255512],
+                      [2012, 369935],
+                      [2013, 813942],
+                      [2014, 342071],
+                      [2015, 238217]]
+                },
+                {
+                    "key" : "Middle East",
+                    "values" : [
+                      [2000,57898],
+                      [2001,62063],
+                      [2002,83134],
+                      [2003,132890],
+                      [2004,95006],
+                      [2005,116600],
+                      [2006,148447],
+                      [2007,155790],
+                      [2008,158655],
+                      [2009,134625],
+                      [2010,147619],
+                      [2011,161368],
+                      [2012,186121],
+                      [2013,285796],
+                      [2014,268994],
+                      [2015,297047]]
+                },
+                {
+                    "key" : "Europe",
+                    "values" : [
+                      [2000,142246],
+                      [2001,101745],
+                      [2002,144731],
+                      [2003,142465],
+                      [2004,128078],
+                      [2005,126953],
+                      [2006,125281],
+                      [2007,114030],
+                      [2008,110843],
+                      [2009,100015],
+                      [2010,113083],
+                      [2011,113089],
+                      [2012,113134],
+                      [2013,97961],
+                      [2014,99489],
+                      [2015,93886]]
+                },
+                {
+                    "key" : "Oceania",
+                    "values" : [
+                      [2000,289],
+                      [2001,177],
+                      [2002,220],
+                      [2003,260],
+                      [2004,390],
+                      [2005,477],
+                      [2006,612],
+                      [2007,617],
+                      [2008,1662],
+                      [2009,1757],
+                      [2010,1796],
+                      [2011,2646],
+                      [2012,1564],
+                      [2013,1591],
+                      [2014,1618],
+                      [2015,2436]]
+                }
+            ];
+
+            $scope.yAxisTickFormatFunction = function(){
+                var format = d3.format("s");
+                return function(num){
+                    return format(num);
+                }
+            };
+
+            $scope.toolTipContentFunction = function(){
+                return function(key, x, y, e, graph){
+                    console.log("tooltip content");
+                    return "Super awesome tooltip" +
+                        "<h1>" + key + "</h1>" +
+                        "<p>" + y + " at " + x + "</p>"
+                }
+            };
+
+        }
+
+    </script>
+</head>
+
+<body ng-app='nvd3TestApp'>
+
+  <div class="page-header">
+    <h1> Norwegian Development Fund Disbursements 2000-2015</h1>
+  </div>
+  <h2>Which global region received the most funds between 2000-2015?</h2>
+  <p class="lead"> This chart shows the cumulative amount of funds each geographical regions
+      has received from the <b>Norwegian Fund</b> between 2000-2015. </p>
+
+  <div class="indented">
+    <ul>
+    <li>     Africa       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;12,307,239 </li>
+    <li>     Asia         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;6,093,064 </li>
+    <li>     America      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 3,400,477 </li>
+    <li>     Middle East  &nbsp; &nbsp;2,492,061 </li>
+    <li>     Europe       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1,867,036 </li>
+    <li>     Oceania      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  18,119 </li>
+    </ul>
+  </div>
+
+  <h3> Interactions </h3>
+  <p class="lead">  Select the type of Stacked Area Chart by clicking "Stacked", "Stream", or
+  "Expanded". </p>
+  <p class="lead">  Include or exclude regions by selecting the region buttons on the type right. </p>
+  <p class="lead">  Hover over each year to reveal the amount of funds received per region. </p>
+  <div id="container"></div>
+
+
+<div ng-controller="ExampleCtrl">
+    <nvd3-stacked-area-chart
+            data="exampleData"
+            id="exampleId"
+            height="400"
+            margin.left="200"
+            width="800"
+            tooltips="true"
+            showLegend="true"
+            showControls="true"
+            interactive="true"
+            useInteractiveGuideline="true"
+            showXAxis="true"
+            showYAxis="true"
+            toolTipContent="toolTipContentFunction()"
+            yAxisTickFormat="yAxisTickFormatFunction()"
+            <svg></svg>
+    </nvd3-stacked-area-chart>
+</div>
+
+<h2> About this page </h2>
+  <p class="lead"> This chart was built using nvd3 and angularjs.</p>
+
+<h3> User Interface Events </h3>
+  <p class="lead"> The user can also change the type of graph selecting either "Stacked", "Stream", or "Expanded".
+      Regions can also be included or excluded through selection.
+  </p>
+
+<h3> Annotations </h3>
+  <p class="lead"> The region name and funds received is displayed when the user hovers over each year point.
+      The y-axis represents the total amount disbursed in (000ʻs usd).  The x-axis represents
+      each year.
+  </p>
+
+<h3> Triggers </h3>
+  <p class="lead">  A display each regionʻs annual funds when the tooltip is hovered over the data.
+      The user can also change the type of graph selecting either "Stacked", "Stream", or "Expanded".
+      Regions can also be included or excluded through selection.
+  </p>
+
+<h3> Parameters </h3>
+  <p class="lead"> The chart is based on the data provided in <b>funds.csv</b>.
+    The parameters are "key"= Recipient Region, "values"=[Year, Disbursements (1000 $)].
+  </p>
+
+<h3> License </h3>
+<p class="lead"> This chart was based on the Angular.js and nvd3.js -
+  <a href="https://github.com/angularjs-nvd3-directives/angularjs-nvd3-directives/blob/master/examples/stackedAreaChart.html">Stacked Area Chart Template</a>.</p>
+
+
+<div id="infoMenu">
+<ul>
+    <li><a href="https://piazza.com/class/j1rmndzjbmk7nm?cid=290">Piazza </li>
+
+</ul>
+
+</div>
+
+</body>
+</html>
