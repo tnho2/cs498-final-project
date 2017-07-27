@@ -7,7 +7,7 @@
   stroke-width: 1.5px;
 }
 .text{
-  font-size:14px;
+  font-size:18px;
   text-transform:capitalize;
 }
 #container {
@@ -50,9 +50,9 @@ button.accordion{
   background-color: #eee;
   color: #444;
   cursor: pointer;
-  padding: 18px;
+  padding: 22px;
   width: 100%;
-  font-size: 14px;
+  font-size: 22px;
   text-align: left;
   border: none;
   outline: none;
@@ -66,32 +66,111 @@ div.panel {
   background-color: white;
   display: none;
 }
+p.lead {
+    padding-left: 80px;
+}
+div.header{
+    padding-left: 80px;
+}
 
+table{
+//    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 30%;
+    font-size: 18px;
+}
+
+td, th{
+    border: 1px solid #dddddd;
+    text-align: right;
+    padding: 80px;
+    font-weight: normal;
+}
+
+tr:nth-child(even){
+    background-color: #dddddd;
+}
 
 </style>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
-  <div class="page-header">
+
+    <!--- fixed navigation bar --->
+  <nav class="navbar navbar-inverse navbar-fixed-bottom">
+      <div class="container-fluid">
+          <div class="navbar-header">
+              <a class="navbar-brand">CS-498</a>
+          </div>
+          <ul class = "nav navbar-nav">
+              <li><a href="intro_slide.html">Intro</a></li>
+              <li> <a href="stackedArea.html">Stacked Area</a></li>
+              <li> <a href="groupedBar.html">Grouped Bar</a></li>
+              <li class="active"> <a href="worldmap-template.html">World Map</a></li>
+              <li> <a href="links.html">Links</a></li>
+          </ul>
+      </div>
+  </nav>
+
+    <!--- text --->
+  <div class="container" id="head-title">
     <h1> Norwegian Development Fund Disbursements 2000-2015</h1>
   </div>
-  <h2> Which countries have received the most funds?</h2>
+
+  <div class="header">
+    <h2> Which countries have received the most funds?</h2>
+  </div>
+
   <p class="lead"> This chart shows which countries (non-blue) have received funds from the <b>Norwegian
     Fund</b> between 2000-2015. </p>
   <p class="lead"> The top five recipient countries are: </p>
-  <div class="indented">
-    <ul>
-    <li>     Afghanistan  &nbsp; &nbsp; 1,436,633 </li>
-    <li>     Brazil       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1,365,411 </li>
-    <li>     Palestine    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1,340,053 </li>
-    <li>     Tanzania     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1,286,937 </li>
-    <li>     Mozambique   &nbsp; &nbsp; 999,138 </li>
-    </ul>
+
+          <!--- table  --->
+  <table align="center">
+      <tr>
+          <th><b>Country </b></th>
+          <th><b>Funds (000ʻs usd)</b></th>
+      </tr>
+      <!--- country, fund --->
+      <tr>
+          <th>Afghanistan</th>
+          <th>1,436,633</th>
+      </tr>
+      <tr>
+          <th>Brazil</th>
+          <th>1,365,411</th>
+      </tr>
+      <tr>
+          <th>Palestine</th>
+          <th>1,340,053</th>
+      </tr>
+      <tr>
+          <th>Tanzania</th>
+          <th>1,286,937</th>
+      </tr>
+      <tr>
+          <th>Mozambique</th>
+          <th>999,138</th>
+      </tr>
+  </table>
+<br>
+
+    <!--- interaction accordian --->
+  <div class="container" id="interactions" style="padding-left: 10 px">
+    <button class="accordion"> <b> Interactions </b></button>
+      <div class="panel"><br>
+      <p class="lead">  Zoom in and out of the map for added detail.</p>
+      <p class="lead">  Clicking a country will display the countryʻs name and the total amount
+        of funds that it has received.</p>
+      </div>
   </div>
-  <h3> Interactions </h3>
-  <p class="lead">  Zoom in and out of the map for added detail.</p>
-  <p class="lead">  Clicking a country will display the countryʻs name and the total amount
-    of funds that it has received.</p>
+
+
   <div id="container"></div>
 
 
@@ -236,8 +315,6 @@ function move() {
 
 }
 
-
-
 var throttleTimer;
 function throttle() {
   window.clearTimeout(throttleTimer);
@@ -281,9 +358,10 @@ function addpoint(lat,lon,text) {
 
 </script>
 
+    <!--- about visualizatin accordian--->
   <div class="container" id="aboutVisualization" style="padding-bottom:30 px">
-    <button class="accordion"><b> About this Visualization (click & scroll down) </b></button>
-      <div class="panel">
+    <button class="accordion"><b> About this Visualization </b></button>
+      <div class="panel"><br>
         <p class="lead"> This interactive world chart was built using d3.  Scroll up to reach the
           Intro.  Scroll down to reach the Final. Click the right or left arrows to change the
           slide.</p>
@@ -316,6 +394,8 @@ function addpoint(lat,lon,text) {
 
       </div>
   </div>
+<br><br>
+
 <script>
 var acc = document.getElementsByClassName("accordion");
 var i;
